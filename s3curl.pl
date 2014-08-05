@@ -74,14 +74,6 @@ if (-f $LOCALDOTFILE) {
 if (-f $DOTFILE) {
     open(CONFIG, $DOTFILE) || die "can't open $DOTFILE: $!"; 
 
-    my @stats = stat(*CONFIG);
-
-    if (($stats[STAT_UID] != $<) || $stats[STAT_MODE] & 066) {
-        die "I refuse to read your credentials from $DOTFILE as this file is " .
-            "readable by, writable by or owned by someone else. Try " .
-            "chmod 600 $DOTFILE";
-    }
-
     my @lines = <CONFIG>;
     close CONFIG;
     eval("@lines");
